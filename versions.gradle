@@ -1,0 +1,166 @@
+/*
+* Copyright (C) 2018 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+def versions = [:]
+versions.room = "2.4.3"
+versions.lifecycle = "2.4.0"
+versions.support = "28.0.0"
+versions.multidex = "1.0.2"
+versions.constraint_layout = "2.1.1"
+versions.dagger = "2.19"
+versions.hilt_version = "2.44"
+versions.junit = "4.12"
+versions.espresso = "3.0.1"
+versions.retrofit = "2.9.0"
+versions.okhttp_logging_interceptor = "4.9.0"
+versions.mockito = "2.7.19"
+versions.mockito_all = "1.10.19"
+versions.android_gradle_plugin = '7.0.4'
+versions.gson = "2.8.1"
+versions.material = "1.6.0"
+versions.google_play_services = "21.0.1"
+
+versions.kotlin_version = "1.5.21"
+versions.kotlinx_coroutines = "1.5.0"
+
+versions.coroutines = "1.4.2"
+versions.mockk = "1.10.6"
+versions.turbine = "0.6.0"
+versions.assertj = "3.19.0"
+
+versions.camerax_version = "1.0.0-alpha01"
+versions.circle_progress = "1.2.0"
+
+versions.image_cropper = "4.3.3"
+
+def deps = [:]
+
+def support = [:]
+support.annotations = "com.android.support:support-annotations:$versions.support"
+support.app_compat = 'androidx.appcompat:appcompat:1.4.1'
+support.design = "com.android.support:design:$versions.support"
+support.v4 = 'androidx.legacy:legacy-support-v4:1.0.0'
+support.core_utils = "com.android.support:support-core-utils:$versions.support"
+support.multidex = 'androidx.multidex:multidex:2.0.1'
+support.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+deps.support = support
+
+def kotlin = [:]
+kotlin.core = "androidx.core:core-ktx:1.6.0"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin_version"
+kotlin.kotlinx = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlinx_coroutines"
+deps.kotlin = kotlin
+
+def room = [:]
+room.room = "androidx.room:room-ktx:$versions.room"
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+deps.room = room
+
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8 = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
+lifecycle.viewmodelScope = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+deps.lifecycle = lifecycle
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+deps.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+dagger.hilt = "com.google.dagger:hilt-android:$versions.hilt_version"
+dagger.hilt_core = "com.google.dagger:hilt-core:$versions.hilt_version"
+dagger.hilt_compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt_version"
+
+deps.dagger = dagger
+
+def espresso = [:]
+espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+def mockito = [:]
+mockito.core = "org.mockito:mockito-core:$versions.mockito"
+mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+deps.mockito = mockito
+
+deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
+deps.junit = "junit:junit:$versions.junit"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.javax = "javax.xml.bind:jaxb-api:2.2.6"
+ext.deps = deps
+
+
+def camerax = [:]
+camerax.camera_core = "androidx.camera:camera-core:$versions.camerax_version"
+camerax.camera_camera2 = "androidx.camera:camera-camera2:$versions.camerax_version"
+deps.camerax = camerax
+
+def google_services = [:]
+google_services.play_services_location = "com.google.android.gms:play-services-location:$versions.google_play_services"
+deps.google_services = google_services
+
+def libs = [:]
+libs.gson = "com.google.code.gson:gson:$versions.gson"
+libs.material = "com.google.android.material:material:$versions.material"
+libs.circle_progress = "com.github.lzyzsd:circleprogress:$versions.circle_progress"
+libs.image_cropper = "com.vanniktech:android-image-cropper:$versions.image_cropper"
+deps.libs = libs
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 33
+build_versions.build_tools = "30.0.2"
+ext.build_versions = build_versions
+
+def app_property = [:]
+app_property.applicationId = "com.nuvama.ao"
+ext.app_property = app_property
+
+def test_suit = [:]
+test_suit.coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+test_suit.mockk = "io.mockk:mockk:$versions.mockk"
+test_suit.turbine = "app.cash.turbine:turbine:$versions.turbine"
+test_suit.assertj = "org.assertj:assertj-core:$versions.assertj"
+deps.test_suit = test_suit
+
+private static def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.mavenCentral()
+    handler.maven { url 'https://maven.google.com' }
+    handler.maven { url 'https://jitpack.io' }
+}
+
+ext.addRepos = this.&addRepos

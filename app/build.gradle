@@ -1,0 +1,144 @@
+plugins {
+    id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id("androidx.navigation.safeargs")
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("AOAndroidKey")
+            storePassword "roadrunner"
+            keyAlias "marketaccountopening"
+            keyPassword "roadrunner"
+        }
+    }
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        applicationId "com.nuvama.ao"
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL', "\"https://www.edelbusiness.in/\""
+            buildConfigField "String", 'DIGILOCKER_CLIENT_ID', "\"E517209A\""
+            buildConfigField "String", 'DIGILOCKER_REDIRECT_URL', "\"https://onboardinguat.nuvamawealth.com/showdocuments?\""
+            buildConfigField "String", 'CLIENT_QUES_SOURCE_ID', "\"42\""
+            buildConfigField "String", 'CLIENT_PROFILING_QUES_SOURCE_ID', "\"42\""
+            buildConfigField "String", 'ESIGN_REDIRECTION_URL', "\"onboardinguat.nuvamawealth\""
+        }
+        staging {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL', "\"https://capsapi.edelweiss.in/\""
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL', "\"https://capsapi.nuvamawealth.com/\""
+            buildConfigField "String", 'DIGILOCKER_CLIENT_ID', "\"FD8066A1\""
+            buildConfigField "String", 'DIGILOCKER_REDIRECT_URL', "\"https://onboarding.nuvamawealth.com/showdocuments?\""
+            buildConfigField "String", 'CLIENT_QUES_SOURCE_ID', "\"15\""
+            buildConfigField "String", 'CLIENT_PROFILING_QUES_SOURCE_ID', "\"15\""
+            buildConfigField "String", 'ESIGN_REDIRECTION_URL', "\"onboarding.nuvamawealth\""
+        }
+    }
+    buildFeatures{
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        lintConfig rootProject.file('lint.xml')
+        checkReleaseBuilds false
+        abortOnError false
+        ignoreWarnings true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    testImplementation deps.junit
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation deps.google_services.play_services_location
+
+    //Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    implementation deps.kotlin.core
+    implementation deps.support.app_compat
+    implementation deps.libs.material
+    implementation deps.libs.circle_progress
+//    implementation deps.libs.image_cropper
+
+    //Dagger
+    kapt deps.dagger.compiler
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    //Hilt
+    implementation deps.dagger.hilt
+    kapt deps.dagger.hilt_compiler
+
+    //Retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.okhttp_logging_interceptor
+
+    //Room
+    implementation deps.room.room
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+
+    implementation deps.camerax.camera_core
+    implementation deps.camerax.camera_camera2
+
+    implementation project(':domain')
+    implementation project(':data')
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}

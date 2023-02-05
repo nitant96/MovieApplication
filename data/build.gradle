@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    api project(':domain')
+    api deps.retrofit.gson
+    api deps.retrofit.runtime
+    api deps.okhttp_logging_interceptor
+
+    //test
+    //testImplementation project(':commontest')
+    testImplementation deps.junit
+
+    testImplementation deps.test_suit.coroutines
+    testImplementation deps.test_suit.mockk
+    testImplementation deps.test_suit.turbine
+    testImplementation deps.test_suit.assertj
+
+}
+

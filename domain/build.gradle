@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'kotlin-kapt'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+
+    implementation deps.kotlin.stdlib
+    api deps.kotlin.kotlinx
+    api ("com.michael-bull.kotlin-result:kotlin-result:1.1.11")
+
+    // Hilt dependencies
+    api deps.dagger.hilt_core
+
+    //test
+    //testImplementation project(':commontest')
+    testImplementation deps.junit
+    testImplementation deps.test_suit.coroutines
+    testImplementation "io.mockk:mockk:1.10.6"
+    testImplementation "app.cash.turbine:turbine:0.4.0"
+    testImplementation "org.assertj:assertj-core:3.19.0"
+}
