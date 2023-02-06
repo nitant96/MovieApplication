@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.uservitals.coreui.observeIn
 import com.example.domain.moviedetails.MovieDetailData
+import com.example.movieapplication.R
 import com.example.movieapplication.adapter.MovieContributorsAdapter
 import com.example.movieapplication.databinding.MovieInfoLayoutBinding
 import com.example.movieapplication.viewModel.MovieInfoViewModel
@@ -39,9 +41,9 @@ class MovieInfoFragment : Fragment() {
         viewModel.getMovieCastCrewDetails()
         setupObservers()
 
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+        binding.proceedBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_MovieFragment_to_ThankyouFragment)
+        }
 
     }
 
