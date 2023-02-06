@@ -21,9 +21,13 @@ import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
+    //ViewBinding object
     private var _binding: MovieInfoLayoutBinding? = null
     private val binding get() = _binding!!
+
     private val viewModel: MovieInfoViewModel by viewModels()
+
+    //Adapters having same type as both data lists are inheriting same Class
     private var castAdapter: MovieContributorsAdapter? = null
     private var crewAdapter: MovieContributorsAdapter? = null
 
@@ -31,16 +35,23 @@ class MovieInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //Initializing view binding on OnCreateView
         _binding = MovieInfoLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovieDetails()
-        viewModel.getMovieCastCrewDetails()
+        //Setting up API Observers prior calling the data
         setupObservers()
 
+        //loading initial data from view model
+        viewModel.getMovieDetails()
+        viewModel.getMovieCastCrewDetails()
+
+
+        //Navigating to next fragment using Navigation
         binding.proceedBtn.setOnClickListener {
             findNavController().navigate(R.id.action_MovieFragment_to_ThankyouFragment)
         }
@@ -67,7 +78,6 @@ class MovieInfoFragment : Fragment() {
     private fun setupMovieBasicDetails(data:MovieDetailData){
         val imagePath = "https://image.tmdb.org/t/p/w500${data.backdropPath}"
         Picasso.get().load(imagePath).into(_binding?.posterImage)
-
         _binding?.movieName?.text = data.title
         _binding?.taglineText?.text = data.tagline
     }

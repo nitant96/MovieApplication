@@ -12,7 +12,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-
+//This is the binder class neede as per the Hilt DI Documentation to Bind interfaces with there implementations.
 @Module
 @InstallIn(ViewModelComponent::class)
 interface ViewModelModule {

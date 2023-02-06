@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+//ViewModel uses Hilt DI to inject Usecases for calling and getting the data through API.
 @HiltViewModel
 class MovieInfoViewModel @Inject constructor(
     private val movieDetailUseCase: GetMovieDetailUseCase,
@@ -21,9 +21,11 @@ class MovieInfoViewModel @Inject constructor(
 ) : ViewModel()
 {
 
+    //Movie cast/crew list (Initialized empty to avoid further error scope)
     var movieCastList : ArrayList<MovieCastCrewDetailData.Cast> ?= null
     var movieCrewList : ArrayList<MovieCastCrewDetailData.Crew> ?= null
 
+    //used to fetch Movie data and emit it through SharedFlow.
     private val  _movieDetailData = MutableSharedFlow<MovieDetailData>()
     val movieDetailData = _movieDetailData.asSharedFlow()
     fun getMovieDetails(){
@@ -35,6 +37,8 @@ class MovieInfoViewModel @Inject constructor(
         }
     }
 
+
+    //used to fetch Movie's cast/Crew data and emit it through SharedFlow.
     private val  _movieCastCrewDetailData = MutableSharedFlow<MovieCastCrewDetailData>()
     val movieCastCrewDetailData = _movieCastCrewDetailData.asSharedFlow()
     fun getMovieCastCrewDetails(){

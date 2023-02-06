@@ -12,8 +12,10 @@ import com.squareup.picasso.Picasso
 class MovieContributorsAdapter() : RecyclerView.Adapter<MovieContributorsAdapter.ViewHolder>()
 
 {
+    //Initializing a Dummy list (Delibrately done to avoid null handling scenarios)
     private var listOfItem = mutableListOf<MovieCastCrewDataModel>()
 
+    //ViewHolder takes MovieCastCrewDataModel as input, Cast & Crew both Implement MovieCastCrewDataModel to reuse the same Adapter
     class ViewHolder(val binding: CastCrewItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieCastCrewDataModel) {
@@ -35,6 +37,7 @@ class MovieContributorsAdapter() : RecyclerView.Adapter<MovieContributorsAdapter
         }
     }
 
+    //to set the item list and notify the Adapter at same time
     internal fun setListOfItems(data: List<MovieCastCrewDataModel>) {
         listOfItem = data.toMutableList()
         notifyDataSetChanged()

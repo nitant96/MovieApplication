@@ -7,6 +7,7 @@ import com.example.domain.moviedetails.MovieDetailData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+//Movie Detail UseCase and its implementation, it uses DataSource to fetch the data with corresponding Service and Input parameters
 interface GetMovieDetailUseCase : UseCase<Unit, Flow<MovieDetailData>>
 class GetMovieDetailUseCaseImpl @Inject constructor(
     private val fetchMovieDetailService: FetchMovieDetailService

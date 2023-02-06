@@ -5,6 +5,7 @@ import com.example.data.movie.moviedetail.MovieDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+//API Service to fetch the data and Map it using retrofit.
 interface MovieApiService {
     @GET("3/movie/453395")
     suspend fun getMovieDetails(@Query("api_key") apiKey : String,@Query("language") language:String,@Query("page") page:String) : ApiResult<MovieDetailResponse>

@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+//Data Source to execute the corresponding API Service using retrofit Client and Dispatcher,
+// along with Data Mapper to map the Response data into Local Data for UI consumption
 class GetMovieDetailDataSource @Inject constructor(
     private val remoteService: MovieApiService,
     errorMapper: ErrorMapper,
