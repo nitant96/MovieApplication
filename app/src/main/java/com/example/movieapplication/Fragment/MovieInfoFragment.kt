@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.uservitals.coreui.observeIn
+import com.example.domain.moviedetails.MovieDetailData
 import com.example.movieapplication.adapter.MovieContributorsAdapter
 import com.example.movieapplication.databinding.MovieInfoLayoutBinding
 import com.example.movieapplication.viewModel.MovieInfoViewModel
@@ -47,8 +48,7 @@ class MovieInfoFragment : Fragment() {
     private fun setupObservers(){
         //Movie data Shared flow Observer
         viewModel.movieDetailData.onEach {
-            val imagePath = "https://image.tmdb.org/t/p/w500${it.backdropPath}"
-            Picasso.get().load(imagePath).into(_binding?.posterImage)
+            setupMovieBasicDetails(it)
         }.observeIn(this)
 
         //Movie Cast/Crew Shared Flow Observer
@@ -60,6 +60,14 @@ class MovieInfoFragment : Fragment() {
                 setupCrewAdapter()
             }
         }.observeIn(this)
+    }
+
+    private fun setupMovieBasicDetails(data:MovieDetailData){
+        val imagePath = "https://image.tmdb.org/t/p/w500${data.backdropPath}"
+        Picasso.get().load(imagePath).into(_binding?.posterImage)
+
+        _binding?.movieName?.text = data.title
+        _binding?.taglineText?.text = data.tagline
     }
 
     //Setting Up the Cast Adapter post Data received
