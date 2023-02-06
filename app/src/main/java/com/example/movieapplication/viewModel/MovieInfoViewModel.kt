@@ -20,14 +20,13 @@ class MovieInfoViewModel @Inject constructor(
     private val movieCastCrewDetailUseCase: GetMovieCastCrewDetailUseCase
 ) : ViewModel()
 {
-    init {
-        getMovieDetails()
-        getMovieCastCrewDetails()
-    }
+
+    var movieCastList : ArrayList<MovieCastCrewDetailData.Cast> ?= null
+    var movieCrewList : ArrayList<MovieCastCrewDetailData.Crew> ?= null
 
     private val  _movieDetailData = MutableSharedFlow<MovieDetailData>()
     val movieDetailData = _movieDetailData.asSharedFlow()
-    private fun getMovieDetails(){
+    fun getMovieDetails(){
         viewModelScope.launch {
             movieDetailUseCase.execute(Unit).catch {  }.collect{
                 //After receiving data, push it to the observer
@@ -38,10 +37,16 @@ class MovieInfoViewModel @Inject constructor(
 
     private val  _movieCastCrewDetailData = MutableSharedFlow<MovieCastCrewDetailData>()
     val movieCastCrewDetailData = _movieCastCrewDetailData.asSharedFlow()
-    private fun getMovieCastCrewDetails(){
+    fun getMovieCastCrewDetails(){
         viewModelScope.launch {
             movieCastCrewDetailUseCase.execute(Unit).catch {  }.collect{
                 //After receiving data, push it to the observer
+                if(it.cast.isNotEmpty()){
+                    movieCastList= it.cast
+                }
+                if(it.crew.isNotEmpty()){
+                    movieCrewList=it.crew
+                }
                 _movieCastCrewDetailData.emit(it)
             }
         }

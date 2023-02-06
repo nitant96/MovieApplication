@@ -10,11 +10,14 @@ data class MovieCastCrewDetailData(
         val name:String?=null,
         val character:String?=null,
         val imagePath:String?=null
-    )
+    ) : MovieCastCrewDataModel
 
     data class Crew(
         val name:String?=null,
         val job:String?=null,
         val imagePath:String?=null
-    )
+    ) : MovieCastCrewDataModel
+}
+
+interface MovieCastCrewDataModel{
 }
